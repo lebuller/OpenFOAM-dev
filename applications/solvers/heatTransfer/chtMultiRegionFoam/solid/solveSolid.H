@@ -11,6 +11,7 @@
             )
           ==
             fvOptions(rho, h)
+            + Q
         );
 
         hEqn.relax();

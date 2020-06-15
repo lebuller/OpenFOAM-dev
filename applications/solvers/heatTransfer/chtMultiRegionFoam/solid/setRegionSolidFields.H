@@ -26,6 +26,8 @@ if (!thermo.isotropic())
 
 volScalarField& h = thermo.he();
 
+const volScalarField& Q = Qsolid[i];
+
 const volScalarField& betav = betavSolid[i];
 
 fv::options& fvOptions = solidHeatSources[i];

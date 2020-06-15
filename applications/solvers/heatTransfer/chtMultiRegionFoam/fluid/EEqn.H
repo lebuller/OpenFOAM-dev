@@ -16,9 +16,11 @@
           : -dpdt
         )
       + thermophysicalTransport.divq(he)
+
      ==
         rho*(U&g)
       + rad.Sh(thermo, he)
+      + Q
       + reaction.Qdot()
       + fvOptions(rho, he)
     );

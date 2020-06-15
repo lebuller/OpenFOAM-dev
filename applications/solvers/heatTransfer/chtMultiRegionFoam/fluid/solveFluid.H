@@ -16,7 +16,7 @@ else
     // --- PISO loop
     while (pimple.correct())
     {
-        #include "../../buoyantPimpleFoam/pEqn.H"
+        #include "pEqn.H"
     }
 
     if (pimples.pimpleTurbCorr(i))

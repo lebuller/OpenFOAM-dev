@@ -4,6 +4,7 @@ PtrList<solidThermo> thermos(solidRegions.size());
 PtrList<radiationModel> radiations(solidRegions.size());
 PtrList<fv::options> solidHeatSources(solidRegions.size());
 PtrList<volScalarField> betavSolid(solidRegions.size());
+PtrList<volScalarField> Qsolid(solidRegions.size());
 PtrList<volSymmTensorField> aniAlphas(solidRegions.size());
 
 // Populate solid field pointer lists
@@ -14,6 +15,24 @@ forAll(solidRegions, i)
 
     Info<< "    Adding to thermos\n" << endl;
     thermos.set(i, solidThermo::New(solidRegions[i]));
+
+    Info<< "    Adding to Qsolid\n" << endl;
+        Qsolid.set
+        (
+            i,
+            new volScalarField
+            (
+                IOobject
+                (
+                    "Q",
+                    runTime.timeName(),
+                    solidRegions[i],
+                    IOobject::MUST_READ,
+                    IOobject::AUTO_WRITE
+                ),
+                solidRegions[i]
+            )
+        );
 
     Info<< "    Adding to radiations\n" << endl;
     radiations.set(i, radiationModel::New(thermos[i].T()));

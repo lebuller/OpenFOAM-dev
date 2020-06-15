@@ -1,6 +1,7 @@
 // Initialise fluid field pointer lists
 PtrList<rhoReactionThermo> thermoFluid(fluidRegions.size());
 PtrList<volScalarField> rhoFluid(fluidRegions.size());
+PtrList<volScalarField> QFluid(fluidRegions.size());
 PtrList<volVectorField> UFluid(fluidRegions.size());
 PtrList<surfaceScalarField> phiFluid(fluidRegions.size());
 PtrList<uniformDimensionedVectorField> gFluid(fluidRegions.size());
@@ -48,6 +49,24 @@ forAll(fluidRegions, i)
                 IOobject::AUTO_WRITE
             ),
             thermoFluid[i].rho()
+        )
+    );
+
+    Info<< "    Adding to QFluid\n" << endl;
+    QFluid.set
+    (
+        i,
+        new volScalarField
+        (
+            IOobject
+            (
+                "Q",
+                runTime.timeName(),
+                fluidRegions[i],
+                IOobject::READ_IF_PRESENT,
+                IOobject::AUTO_WRITE
+            ),
+            fluidRegions[i]
         )
     );
 
