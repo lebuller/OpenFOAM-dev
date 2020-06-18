@@ -27,14 +27,14 @@ Note
 
 \*---------------------------------------------------------------------------*/
 
+#include <mpi.h>
+
 #include "UPstream.H"
 #include "PstreamReduceOps.H"
 #include "OSspecific.H"
 #include "PstreamGlobals.H"
 #include "SubList.H"
 #include "allReduce.H"
-
-#include <mpi.h>
 
 #include <cstring>
 #include <cstdlib>
@@ -65,11 +65,14 @@ void Foam::UPstream::addValidParOptions(HashTable<string>& validParOptions)
 }
 
 
-bool Foam::UPstream::init(int& argc, char**& argv, const bool needsThread MPI_COMM comm*)
+bool Foam::UPstream::init(int& argc, char**& argv, const bool needsThread, void *comm)
 {
     // MPI_Init(&argc, &argv);
     int provided_thread_support;
-    if(!MPI_Initialized())
+    int initialized;
+
+    MPI_Initialized(&initialized);
+    if(!initialized)
     {
         MPI_Init_thread
         (
@@ -84,16 +87,15 @@ bool Foam::UPstream::init(int& argc, char**& argv, const bool needsThread MPI_CO
         );
     }
 
-    MPI_COMM comm_internal
+    MPI_Comm comm_internal;
     if(comm)
     {
-        comm_internal = *comm
+        comm_internal = *((MPI_Comm*)comm);
     }
     else
     {
-        comm_internal = MPI_COMM_WORLD
+        comm_internal = MPI_COMM_WORLD;
     }
-    
 
     // int numprocs;
     // MPI_Comm_size(comm_internal, &numprocs);
@@ -203,8 +205,13 @@ void Foam::UPstream::exit(int errnum)
 
     if (errnum == 0)
     {
-        MPI_Finalize();
-        ::exit(errnum);
+        int finalized;
+        MPI_Finalized(&finalized);
+        if(!finalized)
+        {
+            MPI_Finalize();
+            ::exit(errnum);
+        }
     }
     else
     {

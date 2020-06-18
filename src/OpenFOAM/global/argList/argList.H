@@ -199,7 +199,7 @@ public:
             bool checkArgs = true,
             bool checkOpts = true,
             bool initialise = true,
-            MPI_COMM comm* = NULL
+            void *comm = NULL
         );
 
         //- Construct copy with new options
@@ -209,8 +209,8 @@ public:
             const HashTable<string>& options,
             bool checkArgs = true,
             bool checkOpts = true,
-            bool initialise = true,
-            MPI_COMM comm* = NULL
+            bool initialise = true
+//            void *comm = NULL
         );
 
 
