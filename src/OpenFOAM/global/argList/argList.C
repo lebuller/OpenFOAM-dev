@@ -418,7 +418,8 @@ Foam::argList::argList
     char**& argv,
     bool checkArgs,
     bool checkOpts,
-    const bool initialise
+    const bool initialise,
+    MPI_COMM comm* = NULL
 )
 :
     args_(argc),
@@ -484,7 +485,7 @@ Foam::argList::argList
 
             if (validParOptions.found(optionName))
             {
-                parRunControl_.runPar(argc, argv, needsThread);
+                parRunControl_.runPar(argc, argv, needsThread comm*);
                 break;
             }
         }

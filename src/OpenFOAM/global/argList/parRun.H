@@ -64,11 +64,11 @@ public:
         }
     }
 
-    void runPar(int& argc, char**& argv, const bool needsThread)
+    void runPar(int& argc, char**& argv, const bool needsThread MPI_COMM comm* = NULL)
     {
         RunPar = true;
 
-        if (!Pstream::init(argc, argv, needsThread))
+        if (!Pstream::init(argc, argv, needsThread comm*))
         {
             Info<< "Failed to start parallel run" << endl;
             Pstream::exit(1);

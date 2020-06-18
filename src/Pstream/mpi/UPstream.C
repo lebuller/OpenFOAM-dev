@@ -65,32 +65,46 @@ void Foam::UPstream::addValidParOptions(HashTable<string>& validParOptions)
 }
 
 
-bool Foam::UPstream::init(int& argc, char**& argv, const bool needsThread)
+bool Foam::UPstream::init(int& argc, char**& argv, const bool needsThread MPI_COMM comm*)
 {
     // MPI_Init(&argc, &argv);
     int provided_thread_support;
-    MPI_Init_thread
-    (
-        &argc,
-        &argv,
+    if(!MPI_Initialized())
+    {
+        MPI_Init_thread
         (
-            needsThread
-          ? MPI_THREAD_MULTIPLE
-          : MPI_THREAD_SINGLE
-        ),
-        &provided_thread_support
-    );
+            &argc,
+            &argv,
+            (
+                needsThread
+              ? MPI_THREAD_MULTIPLE
+              : MPI_THREAD_SINGLE
+            ),
+            &provided_thread_support
+        );
+    }
+
+    MPI_COMM comm_internal
+    if(comm)
+    {
+        comm_internal = *comm
+    }
+    else
+    {
+        comm_internal = MPI_COMM_WORLD
+    }
+    
 
     // int numprocs;
-    // MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
+    // MPI_Comm_size(comm_internal, &numprocs);
     // int myRank;
-    // MPI_Comm_rank(MPI_COMM_WORLD, &myRank);
+    // MPI_Comm_rank(comm_internal, &myRank);
 
     int myGlobalRank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &myGlobalRank);
+    MPI_Comm_rank(comm_internal, &myGlobalRank);
     MPI_Comm_split
     (
-        MPI_COMM_WORLD,
+        comm_internal,
         1,
         myGlobalRank,
         &PstreamGlobals::MPI_COMM_FOAM

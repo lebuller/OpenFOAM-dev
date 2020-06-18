@@ -198,7 +198,8 @@ public:
             char**& argv,
             bool checkArgs = true,
             bool checkOpts = true,
-            bool initialise = true
+            bool initialise = true,
+            MPI_COMM comm* = NULL
         );
 
         //- Construct copy with new options
@@ -208,7 +209,8 @@ public:
             const HashTable<string>& options,
             bool checkArgs = true,
             bool checkOpts = true,
-            bool initialise = true
+            bool initialise = true,
+            MPI_COMM comm* = NULL
         );
 
 
