@@ -37,6 +37,8 @@ Description
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+typedef int MPI_Comm
+
 namespace Foam
 {
 
@@ -64,7 +66,7 @@ public:
         }
     }
 
-    void runPar(int& argc, char**& argv, const bool needsThread, void *comm)
+    void runPar(int& argc, char**& argv, const bool needsThread, const MPI_Comm *comm)
     {
         RunPar = true;
 

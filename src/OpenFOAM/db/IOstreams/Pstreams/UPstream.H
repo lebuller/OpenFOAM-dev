@@ -49,6 +49,8 @@ SourceFiles
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+typedef int MPI_Comm;
+
 namespace Foam
 {
 
@@ -368,7 +370,7 @@ public:
 
         //- Initialisation function called from main
         //  Spawns slave processes and initialises inter-communication
-        static bool init(int& argc, char**& argv, const bool needsThread, void *comm = NULL);
+        static bool init(int& argc, char**& argv, const bool needsThread, const MPI_Comm *comm = NULL);
 
         // Non-blocking comms
 

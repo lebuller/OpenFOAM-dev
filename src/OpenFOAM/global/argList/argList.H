@@ -93,6 +93,8 @@ SourceFiles
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+typedef int MPI_Comm
+
 namespace Foam
 {
 
@@ -199,7 +201,7 @@ public:
             bool checkArgs = true,
             bool checkOpts = true,
             bool initialise = true,
-            void *comm = NULL
+            MPI_Comm *comm = NULL
         );
 
         //- Construct copy with new options
@@ -210,7 +212,7 @@ public:
             bool checkArgs = true,
             bool checkOpts = true,
             bool initialise = true
-//            void *comm = NULL
+//            MPI_Comm *comm = NULL
         );
 
 
