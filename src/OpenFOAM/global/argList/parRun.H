@@ -37,7 +37,7 @@ Description
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-typedef int MPI_Comm
+typedef int MPI_Comm;
 
 namespace Foam
 {

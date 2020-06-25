@@ -419,7 +419,7 @@ Foam::argList::argList
     bool checkArgs,
     bool checkOpts,
     const bool initialise,
-    void *comm
+    MPI_Comm *comm
 )
 :
     args_(argc),

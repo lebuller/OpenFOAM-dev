@@ -90,7 +90,7 @@ bool Foam::UPstream::init(int& argc, char**& argv, const bool needsThread, const
     MPI_Comm comm_internal;
     if(comm)
     {
-        comm_internal = *((MPI_Comm*)comm);
+        comm_internal = *comm;
     }
     else
     {
