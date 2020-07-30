@@ -86,13 +86,12 @@ export WM_COMPILE_OPTION=Opt
 #- MPI implementation:
 #    WM_MPLIB = SYSTEMOPENMPI | OPENMPI | SYSTEMMPI | MPICH | MPICH-GM | HPMPI
 #               | MPI | FJMPI | QSMPI | SGIMPI | INTELMPI
-#export WM_MPLIB=SYSTEMOPENMPI
-export WM_MPLIB=SYSTEMMPI
-export MPI_ROOT=/usr
+if [[ -z "${WM_MPLIB}" ]]
+then
+    export WM_MPLIB=SYSTEMOPENMPI
+fi
 export MPI_ARCH_PATH=$MPI_ROOT
-export MPI_ARCH_INC=-I/usr/include/mpich
-export MPI_ARCH_FLAGS='-Wl,-Bsymbolic-functions -Wl,-z,relro'
-export MPI_ARCH_LIBS='-L/usr/lib/x86_64-linux-gnu -lmpich'
+
 #- Operating System:
 #    WM_OSTYPE = POSIX | ???
 export WM_OSTYPE=POSIX
