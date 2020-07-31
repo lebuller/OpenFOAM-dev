@@ -212,6 +212,9 @@ private:
         //- Multi level communication schedule
         static DynamicList<List<commsStruct>> treeCommunication_;
 
+        // boolean value for if MPI control is handled by another code
+        static bool comm_control_;
+
 
     // Private Member Functions
 

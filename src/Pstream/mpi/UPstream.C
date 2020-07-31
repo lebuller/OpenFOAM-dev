@@ -71,6 +71,8 @@ bool Foam::UPstream::init(int& argc, char**& argv, const bool needsThread, const
     int provided_thread_support;
     int initialized;
 
+//    comm_control_ = false;
+
     MPI_Initialized(&initialized);
     if(!initialized)
     {
@@ -85,6 +87,10 @@ bool Foam::UPstream::init(int& argc, char**& argv, const bool needsThread, const
             ),
             &provided_thread_support
         );
+    }
+    else
+    {
+        comm_control_=true;
     }
 
     MPI_Comm comm_internal;
@@ -205,9 +211,7 @@ void Foam::UPstream::exit(int errnum)
 
     if (errnum == 0)
     {
-        int finalized;
-        MPI_Finalized(&finalized);
-        if(!finalized)
+        if(!comm_control_)
         {
             MPI_Finalize();
             ::exit(errnum);

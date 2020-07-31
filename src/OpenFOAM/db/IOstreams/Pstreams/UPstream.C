@@ -420,6 +420,8 @@ Foam::UPstream::linearCommunication_(10);
 Foam::DynamicList<Foam::List<Foam::UPstream::commsStruct>>
 Foam::UPstream::treeCommunication_(10);
 
+bool Foam::UPstream::comm_control_(false);
+
 
 // Allocate a serial communicator. This gets overwritten in parallel mode
 // (by UPstream::setParRun())
