@@ -10,7 +10,7 @@ cFLAGS      = $(GFLAGS) $(cWARN) $(cOPT) $(cDBUG) $(LIB_HEADER_DIRS) -fPIC
 
 ctoo        = $(WM_SCHEDULER) $(cc) $(cFLAGS) -c $< -o $@
 
-LINK_LIBS   = $(cDBUG)
+LINK_LIBS   = $(cDBUG) -Wl,-rpath=$(FOAM_LIBBIN),-rpath=$(FOAM_LIBBIN)/mpi-system
 
-LINKLIBSO   = $(cc) -fuse-ld=bfd -shared
+LINKLIBSO   = $(cc) -fuse-ld=bfd -shared -Wl,-rpath=$(FOAM_LIBBIN),-rpath=$(FOAM_LIBBIN)/mpi-system
 LINKEXE     = $(cc) -fuse-ld=bfd -Xlinker --add-needed -Xlinker -z -Xlinker nodefs

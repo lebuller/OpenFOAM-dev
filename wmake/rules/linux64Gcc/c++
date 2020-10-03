@@ -19,7 +19,7 @@ cxxtoo      = $(Ctoo)
 cctoo       = $(Ctoo)
 cpptoo      = $(Ctoo)
 
-LINK_LIBS   = $(c++DBUG)
+LINK_LIBS   = $(c++DBUG) -Wl,-rpath=$(FOAM_LIBBIN),-rpath=$(FOAM_LIBBIN)/mpi-system
 
-LINKLIBSO   = $(CC) $(c++FLAGS) -fuse-ld=bfd -shared -Xlinker --add-needed -Xlinker --no-as-needed
+LINKLIBSO   = $(CC) $(c++FLAGS) -fuse-ld=bfd -shared -Xlinker --add-needed -Xlinker --no-as-needed -Wl,-rpath=$(FOAM_LIBBIN),-rpath=$(FOAM_LIBBIN)/mpi-system
 LINKEXE     = $(CC) $(c++FLAGS) -fuse-ld=bfd -Xlinker --add-needed -Xlinker --no-as-needed
